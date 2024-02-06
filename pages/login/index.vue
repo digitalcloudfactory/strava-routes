@@ -51,7 +51,7 @@ p {
 
 a {
 	display: flex;
-	padding: 1rem 2.4rem;
+	padding: 0.75rem 1.8rem;
 	justify-content: center;
 	align-items: center;
 	gap: 0.625rem;
