@@ -1,5 +1,4 @@
 <template>
-	<Navbar />
 	<slot />
 </template>
 
@@ -12,7 +11,6 @@
 
 html {
 	font-family: sans-serif;
-	background: #F8F8F8;
 }
 
 body {
