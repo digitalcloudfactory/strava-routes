@@ -2,7 +2,7 @@ export type Activities = Activity[]
 
 export interface Activity {
 	resource_state: number
-	athlete: Athlete
+	athlete: ActivityAthlete
 	name: string
 	distance: number
 	moving_time: number
@@ -54,7 +54,7 @@ export interface Activity {
 	has_kudoed: boolean
 }
 
-export interface Athlete {
+export interface ActivityAthlete {
 	id: number
 	resource_state: number
 }

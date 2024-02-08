@@ -7,8 +7,9 @@ definePageMeta({
 const accessToken = useCookie("accessToken")
 
 const { refresh, pending, data: activities } = await useLazyAsyncData(
-	'mountains',
+	'activities',
 	() => $fetch("https://www.strava.com/api/v3/athlete/activities", {
+
 		method: "GET",
 		headers: {
 			Authorization: `Bearer ${accessToken.value}`
@@ -19,9 +20,7 @@ const { refresh, pending, data: activities } = await useLazyAsyncData(
 			page: 1,
 			per_page: 3,
 		}
-	}) as Promise<Activities>, {
-
-}
+	}) as Promise<Activities>, {}
 )
 
 </script>
