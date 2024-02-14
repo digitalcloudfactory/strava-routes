@@ -64,3 +64,14 @@ export interface Map {
 	summary_polyline: string
 	resource_state: number
 }
+
+export type ActivityFormated = {
+	id: number;
+	type: string;
+	name: string;
+	date: string;
+	moving_time: string;
+	average_speed: string;
+	distance: string;
+	map_preview: string;
+}

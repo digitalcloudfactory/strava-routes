@@ -4,7 +4,7 @@ import { resolve } from "path";
 export default defineNuxtConfig({
   devtools: { enabled: true },
   imports: {
-    dirs: ["types/*.ts", "types/**/*.ts"]
+    dirs: ["types/*.ts", "types/**/*.ts", "services/*.ts", "services/**/*.ts"]
   },
   css: ["~/assets/css/default.scss"],
   runtimeConfig: {
@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     public: {
       apiClientID: process.env.API_CLIENT_ID,
       apiRedirectURI: process.env.API_REDIRECT_URI,
+      apiMapboxToken: process.env.MAPBOX_PUBLIC_TOKEN
     }
   },
   vite: {

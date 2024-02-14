@@ -16,8 +16,7 @@ const { data: athlete } = await useLazyAsyncData(
 <template>
 	<nav>
 		<NuxtLink to="/">MyMetrics</NuxtLink>
-		<!-- <NuxtLink to="/stats">Stats</NuxtLink> -->
-		<NuxtLink to="/fetchAPI">FetchAPI</NuxtLink>
+		<NuxtLink to="/stats">Stats</NuxtLink>
 
 		<div class="profile">
 			<img v-if="athlete" :src="athlete.profile_medium" alt="">
@@ -31,7 +30,8 @@ nav {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-	border-bottom: 1px solid #000;
+	border-bottom: 1px solid var(--black);
+	background-color: var(--white);
 	padding: 1rem 1.5rem;
 }
 

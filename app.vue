@@ -1,4 +1,5 @@
 <template>
+	<SvgDefs />
 	<NuxtLoadingIndicator />
 	<NuxtLayout>
 		<NuxtPage />
