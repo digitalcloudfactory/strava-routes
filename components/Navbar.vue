@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const accessToken = useCookie("accessToken")
 
-const { data: athlete } = await useLazyAsyncData(
-	'activities',
+const athlete = await useLazyAsyncData(
+	'profil',
 	() => $fetch("https://www.strava.com/api/v3/athlete", {
 
 		method: "GET",
@@ -17,10 +17,11 @@ const { data: athlete } = await useLazyAsyncData(
 	<nav>
 		<NuxtLink to="/">MyMetrics</NuxtLink>
 		<NuxtLink to="/stats">Stats</NuxtLink>
-
 		<div class="profile">
-			<img v-if="athlete" :src="athlete.profile_medium" alt="">
-			<span v-else class="placeholder"></span>
+			<template v-if="athlete.data.value">
+				<span>@{{ athlete.data.value?.username }}</span>
+				<img :src="athlete.data.value?.profile_medium" :alt="`Photo de ${athlete.data.value?.username}`">
+			</template>
 		</div>
 	</nav>
 </template>
@@ -48,12 +49,15 @@ a {
 }
 
 .profile {
+	display: flex;
 	margin-left: auto;
-	width: 2.25rem;
-	height: 2.25rem;
+	align-items: center;
+	gap: 1rem;
 
-	span,
+
 	img {
+		width: 2.25rem;
+		height: 2.25rem;
 		object-fit: cover;
 		border-radius: 100%;
 	}

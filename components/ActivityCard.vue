@@ -1,11 +1,12 @@
 <script setup lang="ts">
+
 defineProps<{
 	run: ActivityFormated
 }>()
 </script>
 
 <template>
-	<article>
+	<NuxtLink class="article" :to="`/activities/${run.id}`">
 		<div class="header">
 			<div class="map">
 				<img :src="run.map_preview" alt="" />
@@ -34,11 +35,11 @@ defineProps<{
 				<span>Temps</span>
 			</div>
 		</div>
-	</article>
+	</NuxtLink>
 </template>
 
 <style scoped lang="scss">
-article {
+.article {
 	display: flex;
 	background: var(--white);
 	padding: 1rem 1.05rem;

@@ -64,3 +64,20 @@ export async function getActivitiesFormated(apiMapboxToken: string): Promise<Act
 		map_preview: getStaticMapURL(activity.map.summary_polyline, apiMapboxToken)
 	})) || [])
 }
+
+export async function getActivity() {
+	const id = useRoute().params.id;
+	const accessToken = useCookie("accessToken");
+
+	const { data } = await useLazyAsyncData(
+		`activity-${id}`,
+		() => $fetch(`https://www.strava.com/api/v3/activities/${id}`, {
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${accessToken.value}`
+			}
+		}) as Promise<Activity>, {}
+	)
+
+	return data.value;
+}
