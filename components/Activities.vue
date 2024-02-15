@@ -1,10 +1,28 @@
-<script setup>
+<script setup lang="ts">
 const config = useRuntimeConfig();
+const accessToken = useCookie("accessToken");
 
-const data = await getActivitiesFormated(config.public.apiMapboxToken)
+const { data, pending } = await useLazyAsyncData(
+	'activities',
+	() => $fetch("https://www.strava.com/api/v3/athlete/activities", {
+
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${accessToken.value}`
+		},
+		query: {
+			before: null,
+			after: null,
+			page: 1,
+			per_page: 10,
+		}
+	}) as Promise<Activities>, {}
+);
+
+const formatedData = getActivitiesFormated(data.value || [], config.public.apiMapboxToken);
 
 const sortValues = ["date", "distance", "time", "elevation"]
-const sortValue = ref(null)
+const sortValue = ref(undefined)
 </script>
 
 <template>
@@ -12,8 +30,6 @@ const sortValue = ref(null)
 		<div class="title">
 			<h1>Activités</h1>
 			<div>
-
-
 				<USelect v-model="sortValue" :options="sortValues" variant="none" placeholder="Trier par...">
 					<template #trailing>
 						<UIcon name="" />
@@ -24,8 +40,8 @@ const sortValue = ref(null)
 
 		</div>
 		<div class="activities">
-			<ActivityCard v-if="data" v-for="run in data" :run="run" />
-			<div v-else>Chargement...</div>
+			<ActivityCard v-if="pending" v-for="i in 5" :key="i" :skeleton="pending" />
+			<ActivityCard v-else v-for="run in formatedData" :key="run.id" :run="run" />
 		</div>
 	</main>
 </template>
@@ -53,10 +69,6 @@ main {
 		align-items: normal;
 		justify-content: normal;
 		gap: 1rem;
-
-		div {
-			display: block;
-		}
 	}
 }
 </style>

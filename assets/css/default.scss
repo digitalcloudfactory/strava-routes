@@ -1,8 +1,8 @@
 :root {
+  --black: #000;
+  --white: #fff;
   --gray-light: #f8f8f8;
   --gray: #9c9c9c;
-  --white: #fff;
-  --black: #000;
 }
 
 *,
@@ -13,10 +13,18 @@
 
 html {
   background: var(--gray-light);
+
+  &.dark {
+    --black: #fff;
+    --white: #0f0f17;
+    --gray-light: #1a202c;
+    --gray: #9c9c9c;
+  }
 }
 
 body {
   @include ff-inter;
+  color: var(--black);
   margin: 0;
   padding: 0;
 }

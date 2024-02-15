@@ -1,12 +1,51 @@
 <script setup lang="ts">
 
 defineProps<{
-	run: ActivityFormated
+	run?: ActivityFormated,
+	skeleton?: boolean
 }>()
 </script>
 
 <template>
-	<NuxtLink class="article" :to="`/activities/${run.id}`">
+	<template v-if="skeleton">
+		<div class="article skeleton">
+			<div class="header">
+				<div class="map">
+					<span class="skeleton-img"></span>
+				</div>
+				<div class="header">
+					<div class="info">
+						<div class="skeleton-text"></div>
+						<div class="skeleton-text"></div>
+					</div>
+					<div class="name">
+						<div class="skeleton-text"></div>
+					</div>
+				</div>
+			</div>
+			<div class="stats">
+				<div>
+					<div class="skeleton-text"></div>
+					<div class="skeleton-text"></div>
+				</div>
+				<div>
+					<div class="skeleton-text"></div>
+					<div class="skeleton-text"></div>
+				</div>
+				<div>
+					<div class="skeleton-text"></div>
+					<div class="skeleton-text"></div>
+				</div>
+			</div>
+		</div>
+
+	</template>
+	<NuxtLink v-else-if="run" class="article" :to="{
+		name: 'activity',
+		params: {
+			id: run.id
+		}
+	}">
 		<div class="header">
 			<div class="map">
 				<img :src="run.map_preview" alt="" />
@@ -79,6 +118,37 @@ defineProps<{
 		.name {
 			font-size: 0.875rem;
 			color: var(--gray);
+		}
+	}
+
+	&.skeleton {
+		.skeleton-img {
+			border-radius: 0.5rem;
+			display: block;
+			width: 6rem;
+			height: 6rem;
+
+
+		}
+
+		.skeleton-text {
+			display: block;
+			width: 10ch;
+			margin: 0.25rem;
+			height: 1em;
+
+			border-radius: 0.25rem;
+		}
+
+		.skeleton-img,
+		.skeleton-text {
+			background: var(--gray);
+		}
+
+
+		.map {
+			overflow: visible;
+
 		}
 	}
 }
