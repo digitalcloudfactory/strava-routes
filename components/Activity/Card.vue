@@ -52,7 +52,7 @@ defineProps<{
 			</div>
 			<div class="header">
 				<div class="info">
-					<span>{{ run.type }}</span>
+					<span class="icon" :class="run.type"></span>
 					<span>{{ run.date }}</span>
 				</div>
 				<div class="name">
@@ -112,6 +112,7 @@ defineProps<{
 
 		.info {
 			display: flex;
+			align-items: center;
 			gap: 0.5rem;
 		}
 

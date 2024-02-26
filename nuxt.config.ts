@@ -5,8 +5,8 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["types/*.ts", "types/**/*.ts", "services/*.ts", "services/**/*.ts"]
   },
-  modules: ['@nuxt/ui'],
-  css: ["~/assets/css/default.scss"],
+  modules: ['@nuxt/ui', '@pinia/nuxt'],
+  css: ["~/assets/css/default.scss", "~/assets/css/icons.scss"],
   runtimeConfig: {
     apiClientSecret: process.env.API_CLIENT_SECRET,
     public: {

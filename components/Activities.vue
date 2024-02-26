@@ -2,6 +2,8 @@
 const config = useRuntimeConfig();
 const accessToken = useCookie("accessToken");
 
+const activitiesStore = useActivitiesStore();
+
 const { data, pending } = await useLazyAsyncData(
 	'activities',
 	() => $fetch("https://www.strava.com/api/v3/athlete/activities", {
@@ -19,7 +21,7 @@ const { data, pending } = await useLazyAsyncData(
 	}) as Promise<Activities>, {}
 );
 
-const formatedData = getActivitiesFormated(data.value || [], config.public.apiMapboxToken);
+const formatedActivities = getActivitiesFormated(data.value || [], config.public.apiMapboxToken, { year: activitiesStore.year, month: activitiesStore.month });
 
 const sortValues = ["date", "distance", "time", "elevation"]
 const sortValue = ref(undefined)
@@ -41,7 +43,7 @@ const sortValue = ref(undefined)
 		</div>
 		<div class="activities">
 			<ActivityCard v-if="pending" v-for="i in 5" :key="i" :skeleton="pending" />
-			<ActivityCard v-else v-for="run in formatedData" :key="run.id" :run="run" />
+			<ActivityCard v-else v-for="run in formatedActivities" :key="run.id" :run="run" />
 		</div>
 	</main>
 </template>

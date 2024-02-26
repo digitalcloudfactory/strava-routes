@@ -1,5 +1,10 @@
 import type { ActivityFormated } from '~/types/activities';
 
+interface filters {
+	year: number;
+	month: number;
+}
+
 export function dateFormater(date: string) {
 	return new Date(date).toLocaleDateString("fr", {});
 }
@@ -26,19 +31,20 @@ export function totalDistanceFormater(meters: number) {
 }
 
 export function typeFormater(type: string) {
-	return type === "Run" ? "run-icon" : type;
+	return type === "Run" ? "icon-run" : type;
 }
 
-export function getActivitiesFormated(activities: Activities | [], apiMapboxToken: string): ActivityFormated[] {
+export function getActivitiesFormated(activities: Activities | [], apiMapboxToken: string, option: filters): ActivityFormated[] {
 
-	return (activities.filter(activity => activity.type === "Run").map(activity => ({
-		id: activity.id,
-		type: activity.type,
-		name: activity.name,
-		date: dateFormater(activity.start_date),
-		moving_time: totalTimeFormater(activity.moving_time),
-		average_speed: averageSpeedFormater(activity.average_speed),
-		distance: totalDistanceFormater(activity.distance),
-		map_preview: getStaticMapURL(activity.map.summary_polyline, apiMapboxToken)
-	})) || [])
+	return (activities.filter(activity => ((activity.type === "Run") && (new Date(activity.start_date).getFullYear() === option.year)))
+		.map(activity => ({
+			id: activity.id,
+			type: typeFormater(activity.type),
+			name: activity.name,
+			date: dateFormater(activity.start_date),
+			moving_time: totalTimeFormater(activity.moving_time),
+			average_speed: averageSpeedFormater(activity.average_speed),
+			distance: totalDistanceFormater(activity.distance),
+			map_preview: getStaticMapURL(activity.map.summary_polyline, apiMapboxToken)
+		})) || [])
 }
