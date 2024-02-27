@@ -1,20 +1,31 @@
+<script setup lang="ts">
+
+const activitiesStore = useActivitiesStore();
+
+const currentActivities = computed(() => activitiesStore.activities);
+
+const info = computed(() => {
+	return getCurrentActivitiesSummary(currentActivities.value)
+})
+
+</script>
+
 <template>
 	<header>
 		<div class="wrapper">
-
 			<ActivitiesFilters />
-			<div class="distance"><span>123,23</span><span>km</span></div>
+			<div class="distance"><span>{{ info.distance }}</span><span>km</span></div>
 			<div class="stats">
 				<div>
-					<span>11</span>
+					<span>{{ info.total }}</span>
 					<span>Courses</span>
 				</div>
 				<div>
-					<span>5’22”</span>
+					<span>{{ info.averageSpeed }}</span>
 					<span>Allure moy.</span>
 				</div>
 				<div>
-					<span>1:02:23</span>
+					<span>{{ info.time }}</span>
 					<span>Temps</span>
 				</div>
 			</div>

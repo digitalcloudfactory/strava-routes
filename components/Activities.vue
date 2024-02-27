@@ -25,10 +25,12 @@ const { data, pending } = await useLazyAsyncData(
 
 const activities = computed(() => {
 	const filtered = getActivitiesFiltered(data.value as Activities, fitlers.value)
-	const formated = getActivitiesFormated(filtered, config.public.apiMapboxToken);
-	const sorted = getActivitiesSorted(formated);
+	const sorted = getActivitiesSorted(filtered);
+	const formated = getActivitiesFormated(sorted, config.public.apiMapboxToken);
 
-	return sorted;
+	activitiesStore.setActivities(filtered);
+
+	return formated;
 });
 
 </script>

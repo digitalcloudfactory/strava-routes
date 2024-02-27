@@ -45,6 +45,12 @@ export function getActivitiesFormated(activities: Activities, apiMapboxToken: st
 		})) || [])
 }
 
+export function getActivitiesSorted(activities: Activities) {
+	return activities
+		// recent first
+		.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+}
+
 export function getActivitiesFiltered(activities: Activities, filters: Filters) {
 	return activities
 		.filter(activity => ((activity.type === "Run")))
@@ -54,8 +60,20 @@ export function getActivitiesFiltered(activities: Activities, filters: Filters) 
 		.filter(activity => new Date(activity.start_date).getMonth() + 1 === Number(filters.month))
 }
 
-export function getActivitiesSorted(activities: Activities) {
-	return activities
-		// recent first
-		.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+
+
+export function getCurrentActivitiesSummary(activities: Activities) {
+	if (activities.length === 0) return {
+		total: 0,
+		distance: "-",
+		time: "--:--:--",
+		averageSpeed: "--'--''"
+	}
+
+	return {
+		total: activities.length,
+		distance: totalDistanceFormater(activities.reduce((acc, activity) => acc + activity.distance, 0)),
+		time: totalTimeFormater(activities.reduce((acc, activity) => acc + activity.moving_time, 0)),
+		averageSpeed: averageSpeedFormater(activities.reduce((acc, activity) => acc + activity.average_speed, 0) / activities.length)
+	}
 }
