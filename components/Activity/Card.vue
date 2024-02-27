@@ -2,7 +2,8 @@
 
 defineProps<{
 	run?: ActivityFormated,
-	skeleton?: boolean
+	skeleton?: boolean,
+	empty?: boolean
 }>()
 </script>
 
@@ -39,6 +40,9 @@ defineProps<{
 			</div>
 		</div>
 
+	</template>
+	<template v-else-if="empty">
+		<p>Il n'y a pas d'activité à afficher!</p>
 	</template>
 	<NuxtLink v-else-if="run" class="article" :to="{
 		name: 'activity',

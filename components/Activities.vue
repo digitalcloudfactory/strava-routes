@@ -4,6 +4,8 @@ const accessToken = useCookie("accessToken");
 
 const activitiesStore = useActivitiesStore();
 
+const fitlers = computed(() => activitiesStore.filters);
+
 const { data, pending } = await useLazyAsyncData(
 	'activities',
 	() => $fetch("https://www.strava.com/api/v3/athlete/activities", {
@@ -16,34 +18,31 @@ const { data, pending } = await useLazyAsyncData(
 			before: null,
 			after: null,
 			page: 1,
-			per_page: 10,
+			per_page: 50,
 		}
 	}) as Promise<Activities>, {}
 );
 
-const formatedActivities = getActivitiesFormated(data.value || [], config.public.apiMapboxToken, { year: activitiesStore.year, month: activitiesStore.month });
+const activities = computed(() => {
+	const filtered = getActivitiesFiltered(data.value as Activities, fitlers.value)
+	const formated = getActivitiesFormated(filtered, config.public.apiMapboxToken);
+	const sorted = getActivitiesSorted(formated);
 
-const sortValues = ["date", "distance", "time", "elevation"]
-const sortValue = ref(undefined)
+	return sorted;
+});
+
 </script>
 
 <template>
 	<main>
 		<div class="title">
 			<h1>Activités</h1>
-			<div>
-				<USelect v-model="sortValue" :options="sortValues" variant="none" placeholder="Trier par...">
-					<template #trailing>
-						<UIcon name="" />
-					</template>
-				</Uselect>
-				<UButton icon="i-heroicons-arrow-up-20-solid" size="sm" color="primary" square variant="solid" />
-			</div>
-
+			<ActivitiesSort />
 		</div>
 		<div class="activities">
 			<ActivityCard v-if="pending" v-for="i in 5" :key="i" :skeleton="pending" />
-			<ActivityCard v-else v-for="run in formatedActivities" :key="run.id" :run="run" />
+			<ActivityCard v-else-if="!activities.length" :empty="true" />
+			<ActivityCard v-else v-for="run in activities" :key="run.id" :run="run" />
 		</div>
 	</main>
 </template>
