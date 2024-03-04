@@ -40,10 +40,11 @@ export function getActivityFormatted(activity: Activity, apiMapboxToken: string)
 		average_speed: averageSpeedFormater(activity.average_speed),
 		distance: totalDistanceFormater(activity.distance),
 		map_preview: apiMapboxToken.length ? getStaticMapURL(activity.map.summary_polyline, apiMapboxToken) : "",
-		kudo_count: activity.kudos_count,
-		average_heartrate: activity.average_heartrate,
-		calories: activity.calories,
 		total_elevation_gain: activity.total_elevation_gain,
+		// data possibly missing
+		kudo_count: activity.kudos_count || 0,
+		average_heartrate: activity.average_heartrate || 0,
+		calories: activity.calories || 0,
 
 	}
 }
