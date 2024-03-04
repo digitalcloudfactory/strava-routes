@@ -71,12 +71,10 @@ main {
 }
 
 .description {
-
 	h2 {
 		font-size: 1rem;
 		text-transform: uppercase;
 		color: var(--gray);
-
 	}
 
 	p {

@@ -41,6 +41,7 @@ defineProps<{
 		</div>
 
 	</template>
+
 	<template v-else-if="empty">
 		<p>Il n'y a pas d'activité à afficher!</p>
 	</template>
@@ -132,16 +133,13 @@ defineProps<{
 			display: block;
 			width: 6rem;
 			height: 6rem;
-
-
 		}
 
 		.skeleton-text {
 			display: block;
-			width: 10ch;
+			width: clamp(5rem, 50%, 10rem);
 			margin: 0.25rem;
 			height: 1em;
-
 			border-radius: 0.25rem;
 		}
 
@@ -149,7 +147,6 @@ defineProps<{
 		.skeleton-text {
 			background: var(--gray);
 		}
-
 
 		.map {
 			overflow: visible;
