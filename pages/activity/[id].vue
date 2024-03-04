@@ -33,12 +33,8 @@ const activityFormatted = computed(() => {
 	<template v-else-if="data">
 		<main class="wrapper">
 			<NuxtLink to="/" class="back">
-				<svg class="icon" aria-hidden="true">
-					<use href="#icon-back"></use>
-				</svg>
-				<span>
-					Retour aux courses
-				</span>
+				<span class="icon icon-arrow-left" aria-hidden="true"></span>
+				<span>Retour aux courses</span>
 			</NuxtLink>
 
 			<ActivityHeader :data="data" />

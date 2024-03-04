@@ -2,16 +2,16 @@
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
-  fill: currentColor;
-
-  background-position: center;
-  background-repeat: no-repeat;
-  fill: black;
+  mask-size: cover;
+  background: var(--black);
 
   &-run {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m15.975 13.59-4.74-8.88a1.95 1.95 0 0 0-3.473.052l-.345.698a.439.439 0 0 1-.157-.338V2.377A1.839 1.839 0 0 0 5.43.54a1.629 1.629 0 0 0-1.508 1.05l-1.74 3.54-1.14.84a2.076 2.076 0 0 0-.795 1.545 2.22 2.22 0 0 0 .675 1.74l5.82 5.925a8.717 8.717 0 0 0 6.165 2.573h2.738a2.069 2.069 0 0 0 1.807-1.05l.038-.068a2.025 2.025 0 0 0-.008-2.048 1.998 1.998 0 0 0-1.507-.997Zm.637 2.543-.037.067a1.07 1.07 0 0 1-.93.547h-2.738a7.692 7.692 0 0 1-5.445-2.28l-5.835-5.94a1.175 1.175 0 0 1-.367-.952 1.07 1.07 0 0 1 .375-.788l.532-.397 6.45 6.36h1.23v-.21L2.985 5.775l1.86-3.765a.636.636 0 0 1 .585-.458.825.825 0 0 1 .817.825v2.745a1.44 1.44 0 0 0 1.44 1.44h.323l.66-1.35a.93.93 0 0 1 .84-.525.943.943 0 0 1 .832.503l.78 1.455-1.605.855v1.14l2.078-1.103.577 1.065v.008L10.2 9.652V10.8l2.445-1.298.555 1.028-2.265 1.2v1.147l2.737-1.455 1.545 2.888.188.27h.3a1.031 1.031 0 0 1 .9.518 1.006 1.006 0 0 1 .007 1.034Z' fill='currentColor'/%3E%3C/svg%3E");
+    mask: url("/assets/svg/icon-run.svg");
   }
   &-strava {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 13 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m8.889 13.423 1.568-3.112h2.314L8.906 18l-3.917-7.689h2.314l1.586 3.112ZM5.21 6.137l-2.1 4.192H0L5.194 0l5.255 10.329H7.337L5.211 6.137Z' fill='%23fff'/%3E%3C/svg%3E");
+    mask: url("/assets/svg/icon-strava.svg");
+  }
+  &-arrow-left {
+    mask: url("/assets/svg/icon-arrow-left.svg");
   }
 }
