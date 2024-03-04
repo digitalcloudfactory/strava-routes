@@ -17,11 +17,9 @@ const athlete = await useLazyAsyncData(
 	<nav>
 		<NuxtLink to="/">MyMetrics</NuxtLink>
 		<NuxtLink to="/stats">Stats</NuxtLink>
-		<div class="profile">
-			<template v-if="athlete.data.value">
-				<span>@{{ athlete.data.value?.username }}</span>
-				<img :src="athlete.data.value?.profile_medium" :alt="`Photo de ${athlete.data.value?.username}`">
-			</template>
+		<div class="profile" v-if="athlete.data.value">
+			<span>@{{ athlete.data.value?.username }}</span>
+			<img :src="athlete.data.value?.profile_medium" :alt="`Photo de ${athlete.data.value?.username}`">
 		</div>
 	</nav>
 </template>
@@ -52,8 +50,8 @@ a {
 	display: flex;
 	margin-left: auto;
 	align-items: center;
+	flex-direction: row;
 	gap: 1rem;
-
 
 	img {
 		width: 2.25rem;
@@ -61,12 +59,5 @@ a {
 		object-fit: cover;
 		border-radius: 100%;
 	}
-}
-
-.placeholder {
-	display: block;
-	width: 100%;
-	height: 100%;
-	background: #bbbbbb;
 }
 </style>

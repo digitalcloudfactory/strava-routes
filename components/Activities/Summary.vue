@@ -2,10 +2,23 @@
 
 const activitiesStore = useActivitiesStore();
 
-const currentActivities = computed(() => activitiesStore.activities);
+const { currentActivities } = storeToRefs(activitiesStore);
 
-const info = computed(() => {
-	return getCurrentActivitiesSummary(currentActivities.value)
+const defaultValues = {
+	total: 0,
+	distance: "--",
+	time: "--:--:--",
+	averageSpeed: "--'--''"
+}
+
+const summary = ref(defaultValues)
+
+watch(currentActivities, () => {
+	if (currentActivities.value.length === 0) {
+		summary.value = defaultValues;
+		return;
+	}
+	summary.value = getCurrentActivitiesSummary(currentActivities.value);
 })
 
 </script>
@@ -14,18 +27,18 @@ const info = computed(() => {
 	<header>
 		<div class="wrapper">
 			<ActivitiesFilters />
-			<div class="distance"><span>{{ info.distance }}</span><span>km</span></div>
+			<div class="distance"><span>{{ summary.distance }}</span><span>km</span></div>
 			<div class="stats">
 				<div>
-					<span>{{ info.total }}</span>
+					<span>{{ summary.total }}</span>
 					<span>Courses</span>
 				</div>
 				<div>
-					<span>{{ info.averageSpeed }}</span>
+					<span>{{ summary.averageSpeed }}</span>
 					<span>Allure moy.</span>
 				</div>
 				<div>
-					<span>{{ info.time }}</span>
+					<span>{{ summary.time }}</span>
 					<span>Temps</span>
 				</div>
 			</div>
@@ -36,7 +49,7 @@ const info = computed(() => {
 <style scoped lang="scss">
 .stats {
 	display: flex;
-	width: 21.125rem;
+	max-width: 21.125rem;
 	align-items: flex-start;
 	gap: 2.125rem;
 

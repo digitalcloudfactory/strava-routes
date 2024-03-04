@@ -4,7 +4,7 @@ const accessToken = useCookie("accessToken");
 
 const activitiesStore = useActivitiesStore();
 
-const fitlers = computed(() => activitiesStore.filters);
+const filters = computed(() => activitiesStore.filters);
 
 const { data, pending } = await useLazyAsyncData(
 	'activities',
@@ -24,13 +24,13 @@ const { data, pending } = await useLazyAsyncData(
 );
 
 const activities = computed(() => {
-	const filtered = getActivitiesFiltered(data.value as Activities, fitlers.value)
+	const filtered = getActivitiesFiltered(data.value as Activities, filters.value)
 	const sorted = getActivitiesSorted(filtered);
-	const formated = getActivitiesFormated(sorted, config.public.apiMapboxToken);
+	const formatted = getActivitiesFormatted(sorted, config.public.apiMapboxToken);
 
 	activitiesStore.setActivities(filtered);
 
-	return formated;
+	return formatted;
 });
 
 </script>

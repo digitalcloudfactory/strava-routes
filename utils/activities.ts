@@ -1,8 +1,8 @@
 import type { Filters } from '~/stores/activities';
-import type { ActivityFormated } from '~/types/activities';
+import type { ActivityFormatted } from '~/types/activities';
 
-export function dateFormater(date: string) {
-	return new Date(date).toLocaleDateString("fr", {});
+export function dateFormater(date: string, option: Intl.DateTimeFormatOptions = {}) {
+	return new Date(date).toLocaleDateString("fr", option);
 }
 
 function totalTimeFormater(totalSeconds: number): string {
@@ -26,23 +26,30 @@ function totalDistanceFormater(meters: number) {
 	return (meters / 1000).toLocaleString('fr', { maximumFractionDigits: 2 });
 }
 
-function typeFormater(type: string) {
+export function typeFormater(type: string) {
 	return type === "Run" ? "icon-run" : type;
 }
 
-export function getActivitiesFormated(activities: Activities, apiMapboxToken: string): ActivityFormated[] {
+export function getActivityFormatted(activity: Activity, apiMapboxToken: string): ActivityFormatted {
+	return {
+		id: activity.id,
+		type: typeFormater(activity.type),
+		name: activity.name,
+		date: dateFormater(activity.start_date),
+		moving_time: totalTimeFormater(activity.moving_time),
+		average_speed: averageSpeedFormater(activity.average_speed),
+		distance: totalDistanceFormater(activity.distance),
+		map_preview: apiMapboxToken.length ? getStaticMapURL(activity.map.summary_polyline, apiMapboxToken) : "",
+		kudo_count: activity.kudos_count,
+		average_heartrate: activity.average_heartrate,
+		calories: activity.calories,
+		total_elevation_gain: activity.total_elevation_gain,
 
-	return (activities
-		.map(activity => ({
-			id: activity.id,
-			type: typeFormater(activity.type),
-			name: activity.name,
-			date: dateFormater(activity.start_date),
-			moving_time: totalTimeFormater(activity.moving_time),
-			average_speed: averageSpeedFormater(activity.average_speed),
-			distance: totalDistanceFormater(activity.distance),
-			map_preview: getStaticMapURL(activity.map.summary_polyline, apiMapboxToken)
-		})) || [])
+	}
+}
+
+export function getActivitiesFormatted(activities: Activities, apiMapboxToken: string): ActivityFormatted[] {
+	return activities.map(activity => getActivityFormatted(activity, apiMapboxToken));
 }
 
 export function getActivitiesSorted(activities: Activities) {
@@ -60,16 +67,7 @@ export function getActivitiesFiltered(activities: Activities, filters: Filters) 
 		.filter(activity => new Date(activity.start_date).getMonth() + 1 === Number(filters.month))
 }
 
-
-
 export function getCurrentActivitiesSummary(activities: Activities) {
-	if (activities.length === 0) return {
-		total: 0,
-		distance: "-",
-		time: "--:--:--",
-		averageSpeed: "--'--''"
-	}
-
 	return {
 		total: activities.length,
 		distance: totalDistanceFormater(activities.reduce((acc, activity) => acc + activity.distance, 0)),

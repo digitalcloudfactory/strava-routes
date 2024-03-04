@@ -3,6 +3,7 @@
   --white: #fff;
   --gray-light: #f8f8f8;
   --gray: #9c9c9c;
+  --primary: #22c55e;
 }
 
 *,
@@ -34,6 +35,7 @@ main {
   flex-direction: column;
   margin: 2rem auto;
   max-width: 800px;
+  width: 100%;
   padding-inline: 1.25rem;
 }
 

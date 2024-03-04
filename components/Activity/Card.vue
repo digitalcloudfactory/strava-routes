@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 defineProps<{
-	run?: ActivityFormated,
+	run?: ActivityFormatted,
 	skeleton?: boolean,
 	empty?: boolean
 }>()
