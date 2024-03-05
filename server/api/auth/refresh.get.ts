@@ -2,20 +2,20 @@ export default defineEventHandler(async (event) => {
 
 	const config = useRuntimeConfig()
 
-	const code = getQuery(event).code?.toLocaleString()
+	const refresh_token = getQuery(event).refresh_token?.toLocaleString()
 
-	if (!code) {
+	if (!refresh_token) {
 		return {
-			error: "Required query parameter 'code' is missing.",
-			event: code
+			error: "Required query parameter 'refresh_token' is missing.",
+			event: refresh_token
 		}
 	}
 
 	const params = new URLSearchParams();
 	params.append('client_id', config.public.apiClientID);
 	params.append('client_secret', config.apiClientSecret);
-	params.append('code', code);
-	params.append('grant_type', 'authorization_code');
+	params.append('grant_type', 'refresh_token');
+	params.append('refresh_token', refresh_token);
 
 	const options = {
 		method: 'POST',
@@ -28,6 +28,14 @@ export default defineEventHandler(async (event) => {
 	const data = await fetch('https://www.strava.com/oauth/token', options).then(res => res.json())
 
 	if (data.errors) {
+		// force remove refreshToken
+		setCookie(event, "refreshToken", '', {
+			httpOnly: false,
+			secure: true,
+			sameSite: 'strict',
+			maxAge: 0
+		})
+
 		return {
 			data
 		}
@@ -38,13 +46,6 @@ export default defineEventHandler(async (event) => {
 		secure: true,
 		sameSite: 'strict',
 		maxAge: data.expires_in
-	})
-
-	setCookie(event, "refreshToken", data.refresh_token, {
-		httpOnly: false,
-		secure: true,
-		sameSite: 'strict',
-		maxAge: 2592000 // 30 days
 	})
 
 	await sendRedirect(event, '/', 200)
