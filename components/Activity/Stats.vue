@@ -54,13 +54,13 @@ const { activity } = defineProps<{
 	text-align: center;
 	border-radius: .5rem;
 	padding: .5rem;
-	background: var(--white);
+	background: var(--c-light);
 	transition: background 150ms;
 	grid-column-start: span 2;
 
 	&:hover {
-		background: var(--primary);
-		color: var(--white);
+		background: var(--c-primary);
+		color: var(--c-light);
 	}
 
 	.title {

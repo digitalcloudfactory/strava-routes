@@ -80,7 +80,6 @@ a {
 .icon {
 	width: 1.25rem;
 	height: 1.25rem;
-	fill: white;
-	color: white;
+	background: var(--c-white);
 }
 </style>

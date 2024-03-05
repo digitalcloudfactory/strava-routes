@@ -29,20 +29,20 @@ nav {
 	display: flex;
 	align-items: center;
 	gap: 1rem;
-	border-bottom: 1px solid var(--black);
-	background-color: var(--white);
+	border-bottom: 1px solid var(--c-dark);
+	background-color: var(--c-light);
 	padding: 1rem 1.5rem;
 }
 
 a {
-	color: var(--gray);
+	color: var(--c-gray);
 
 	&:hover {
 		text-decoration: underline;
 	}
 
 	&.router-link-exact-active {
-		color: var(--black);
+		color: var(--c-dark);
 	}
 }
 

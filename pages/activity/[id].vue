@@ -74,7 +74,7 @@ main {
 	h2 {
 		font-size: 1rem;
 		text-transform: uppercase;
-		color: var(--gray);
+		color: var(--c-gray);
 	}
 
 	p {

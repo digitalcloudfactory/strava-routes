@@ -45,6 +45,6 @@ h1 {
 
 p {
 	font-size: 1rem;
-	color: var(--gray);
+	color: var(--c-gray);
 }
 </style>

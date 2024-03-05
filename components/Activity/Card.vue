@@ -85,7 +85,7 @@ defineProps<{
 <style scoped lang="scss">
 .article {
 	display: flex;
-	background: var(--white);
+	background: var(--c-light);
 	padding: 1rem 1.05rem;
 	flex-direction: column;
 	align-items: flex-start;
@@ -123,7 +123,7 @@ defineProps<{
 
 		.name {
 			font-size: 0.875rem;
-			color: var(--gray);
+			color: var(--c-gray);
 		}
 	}
 
@@ -145,7 +145,7 @@ defineProps<{
 
 		.skeleton-img,
 		.skeleton-text {
-			background: var(--gray);
+			background: var(--c-gray);
 		}
 
 		.map {
@@ -167,12 +167,12 @@ defineProps<{
 
 
 		span {
-			color: var(--gray);
+			color: var(--c-gray);
 			font-size: 0.875rem;
 		}
 
 		span:first-child {
-			color: var(--black);
+			color: var(--c-dark);
 			font-size: 1.25rem;
 			font-weight: 500;
 		}

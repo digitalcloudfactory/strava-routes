@@ -59,12 +59,12 @@ watch(currentActivities, () => {
 
 
 		span {
-			color: var(--gray);
+			color: var(--c-gray);
 			font-size: 0.875rem;
 		}
 
 		span:first-child {
-			color: var(--black);
+			color: var(--c-dark);
 			font-size: 1.25rem;
 			font-weight: 500;
 		}
@@ -72,7 +72,7 @@ watch(currentActivities, () => {
 }
 
 header {
-	background: var(--white);
+	background: var(--c-light);
 
 	.wrapper {
 		display: flex;
