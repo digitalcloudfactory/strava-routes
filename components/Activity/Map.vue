@@ -9,7 +9,6 @@ const props = defineProps<{
 const config = useRuntimeConfig();
 
 const mapboxMap = ref();
-const mapCenter = ref([props.center[1], props.center[0]]);
 const map = computed(() => mapboxMap.value.map);
 
 const geoJSON = {
@@ -56,8 +55,8 @@ onMounted(() => {
 <template>
 	<div class="map">
 		<MapboxMap :access-token="config.public.apiMapboxToken" ref="mapboxMap" style="height: 100%;"
-			map-style="mapbox://styles/mapbox/outdoors-v11" :zoom="1" :minZoom="11.25" :bounds="bounds"
-			:fitBoundsOptions="{ padding: 20 }">
+			map-style="mapbox://styles/mapbox/outdoors-v12" :zoom="1" :minZoom="11.25" :bounds="bounds"
+			:fitBoundsOptions="{ padding: 20 }" :cooperativeGestures="true">
 		</MapboxMap>
 	</div>
 </template>
