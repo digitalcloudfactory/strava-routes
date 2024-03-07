@@ -1,3 +1,5 @@
+import type { StravaTokenResponse } from "~/types/stravaApi";
+
 export default defineEventHandler(async (event) => {
 
 	const config = useRuntimeConfig()
@@ -17,35 +19,34 @@ export default defineEventHandler(async (event) => {
 	params.append('code', code);
 	params.append('grant_type', 'authorization_code');
 
-	const options = {
+	const data = await $fetch('https://www.strava.com/oauth/token', {
 		method: 'POST',
 		headers: {
-			'Content-Type': 'multipart/form-data'
+			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		body: params.toString()
+	}) as StravaTokenResponse
+
+	if (!data || data.errors) {
+		throw createError({
+			statusCode: 500,
+			statusMessage: "Failed to fetch access token."
+		})
 	}
 
-	const data = await fetch('https://www.strava.com/oauth/token', options).then(res => res.json())
-
-	if (data.errors) {
-		return {
-			data
-		}
-	}
-
-	setCookie(event, "accessToken", data.access_token, {
+	setCookie(event, "access_token", data.access_token, {
 		httpOnly: false,
 		secure: true,
 		sameSite: 'strict',
 		maxAge: data.expires_in
 	})
 
-	setCookie(event, "refreshToken", data.refresh_token, {
+	setCookie(event, "refresh_token", data.refresh_token, {
 		httpOnly: false,
 		secure: true,
 		sameSite: 'strict',
 		maxAge: 2592000 // 30 days
 	})
 
-	await sendRedirect(event, '/', 200)
+	await sendRedirect(event, "/")
 })

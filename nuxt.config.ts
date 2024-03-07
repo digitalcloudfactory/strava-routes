@@ -3,7 +3,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   imports: {
-    dirs: ["types/*.ts", "types/**/*.ts", "services/*.ts", "services/**/*.ts"]
+    dirs: ["types/*.ts", "types/**/*.ts"]
   },
   modules: ['@nuxt/ui', '@pinia/nuxt'],
   css: ["~/assets/css/default.scss", "~/assets/css/icons.scss"],

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
-const accessToken = useCookie("accessToken");
+const accessToken = useCookie("access_token");
 
 const activitiesStore = useActivitiesStore();
 

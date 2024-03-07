@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const accessToken = useCookie("accessToken")
+const accessToken = useCookie("access_token")
 
 const athlete = await useLazyAsyncData(
 	'profil',

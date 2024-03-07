@@ -5,7 +5,7 @@ definePageMeta({
 });
 
 const id = useRoute().params.id;
-const accessToken = useCookie("accessToken");
+const accessToken = useCookie("access_token");
 
 const { data, pending } = await useAsyncData(
 	`activity-${id}`,
@@ -22,6 +22,8 @@ const activityFormatted = computed(() => {
 		return getActivityFormatted(data.value, "")
 	}
 })
+
+// TODO: handle invalid activity ID
 
 </script>
 
