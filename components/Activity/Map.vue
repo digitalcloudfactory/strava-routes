@@ -3,7 +3,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 const props = defineProps<{
 	polyline: string;
-	center: number[];
 }>()
 
 const config = useRuntimeConfig();
@@ -63,6 +62,7 @@ onMounted(() => {
 
 <style scoped>
 .map {
+	background-color: var(--c-white);
 	width: 100%;
 	height: clamp(20rem, 60vh, 40rem);
 	border-radius: 0.5rem;

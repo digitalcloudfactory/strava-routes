@@ -3,10 +3,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   imports: {
-    dirs: ["types/*.ts", "types/**/*.ts"]
+    dirs: ["types/*.ts", "types/**/*.ts", "constants/**/*.ts"]
   },
   modules: ['@nuxt/ui', '@pinia/nuxt'],
-  css: ["~/assets/css/default.scss", "~/assets/css/icons.scss"],
+  css: ["~/assets/css/default.scss", "~/assets/css/icons.scss", "~/sass/libs/_apexcharts.scss"],
   runtimeConfig: {
     apiClientSecret: process.env.API_CLIENT_SECRET,
     public: {

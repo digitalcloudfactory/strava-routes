@@ -69,19 +69,19 @@ export interface Activity {
 	leaderboard_opt_out: boolean
 }
 
-export interface Map {
+interface Map {
 	id: string
 	polyline: string
 	resource_state: number
 	summary_polyline: string
 }
 
-export interface SegmentEffort {
+interface SegmentEffort {
 	id: number
 	resource_state: number
 	name: string
 	activity: Activity
-	athlete: Athlete2
+	athlete: Athlete
 	elapsed_time: number
 	moving_time: number
 	start_date: string
@@ -99,17 +99,7 @@ export interface SegmentEffort {
 	hidden: boolean
 }
 
-export interface Activity {
-	id: number
-	resource_state: number
-}
-
-export interface Athlete2 {
-	id: number
-	resource_state: number
-}
-
-export interface Segment {
+interface Segment {
 	id: number
 	resource_state: number
 	name: string
@@ -130,22 +120,24 @@ export interface Segment {
 	starred: boolean
 }
 
-export interface SplitsMetric {
+interface SplitsMetric {
 	distance: number
 	elapsed_time: number
 	elevation_difference: number
 	moving_time: number
 	split: number
 	average_speed: number
+	average_grade_adjusted_speed: number
+	average_heartrate: number
 	pace_zone: number
 }
 
-export interface Lap {
+interface Lap {
 	id: number
 	resource_state: number
 	name: string
-	activity: Activity2
-	athlete: Athlete3
+	activity: Activity
+	athlete: Athlete
 	elapsed_time: number
 	moving_time: number
 	start_date: string
@@ -163,17 +155,7 @@ export interface Lap {
 	split: number
 }
 
-export interface Activity2 {
-	id: number
-	resource_state: number
-}
-
-export interface Athlete3 {
-	id: number
-	resource_state: number
-}
-
-export interface Gear {
+interface Gear {
 	id: string
 	primary: boolean
 	name: string
@@ -181,25 +163,25 @@ export interface Gear {
 	distance: number
 }
 
-export interface Photos {
+interface Photos {
 	primary: Primary
 	use_primary_photo: boolean
 	count: number
 }
 
-export interface Primary {
+interface Primary {
 	id: any
 	unique_id: string
 	urls: Urls
 	source: number
 }
 
-export interface Urls {
+interface Urls {
 	"100": string
 	"600": string
 }
 
-export interface HighlightedKudoser {
+interface HighlightedKudoser {
 	destination_url: string
 	display_name: string
 	avatar_url: string

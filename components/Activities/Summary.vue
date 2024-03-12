@@ -5,7 +5,7 @@ const activitiesStore = useActivitiesStore();
 const { currentActivities } = storeToRefs(activitiesStore);
 
 const defaultValues = {
-	total: 0,
+	total: "00",
 	distance: "--",
 	time: "--:--:--",
 	averageSpeed: "--'--''"
@@ -73,16 +73,6 @@ watch(currentActivities, () => {
 
 header {
 	background: var(--c-light);
-
-	.wrapper {
-		display: flex;
-		max-width: 800px;
-		margin-inline: auto;
-
-		flex-direction: column;
-		gap: 1rem;
-		padding: 1.75rem 1.5rem 3.25rem;
-	}
 
 	.distance {
 		display: inline-flex;

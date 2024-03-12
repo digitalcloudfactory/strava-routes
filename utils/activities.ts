@@ -13,7 +13,7 @@ function totalTimeFormater(totalSeconds: number): string {
 	return [hours, minutes, seconds].map(component => component.toString().padStart(2, '0')).join(':');
 }
 
-function averageSpeedFormater(speedInMetersPerSecond: number): string {
+export function averageSpeedFormater(speedInMetersPerSecond: number): string {
 	const timePerKilometerInMinutes = 60 / (speedInMetersPerSecond * (3600 / 1000));
 
 	const formattedMinutes = Math.floor(timePerKilometerInMinutes).toString().padStart(2, '0');
@@ -53,10 +53,22 @@ export function getActivitiesFormatted(activities: Activities, apiMapboxToken: s
 	return activities.map(activity => getActivityFormatted(activity, apiMapboxToken));
 }
 
-export function getActivitiesSorted(activities: Activities) {
+export function getActivitiesSorted(activities: Activities, sortBy: Sorts, asc: boolean) {
 	return activities
-		// recent first
-		.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+		.sort((a, b) => {
+			switch (sortBy) {
+				case "date":
+					return asc ? new Date(a.start_date).getTime() - new Date(b.start_date).getTime() : new Date(b.start_date).getTime() - new Date(a.start_date).getTime();
+				case "distance":
+					return asc ? a.distance - b.distance : b.distance - a.distance;
+				case "duration":
+					return asc ? a.moving_time - b.moving_time : b.moving_time - a.moving_time;
+				case "elevation":
+					return asc ? a.total_elevation_gain - b.total_elevation_gain : b.total_elevation_gain - a.total_elevation_gain;
+				default:
+					return 0;
+			}
+		})
 }
 
 export function getActivitiesFiltered(activities: Activities, filters: Filters) {
@@ -70,7 +82,7 @@ export function getActivitiesFiltered(activities: Activities, filters: Filters) 
 
 export function getCurrentActivitiesSummary(activities: Activities) {
 	return {
-		total: activities.length,
+		total: activities.length.toString().padStart(2, '0'),
 		distance: totalDistanceFormater(activities.reduce((acc, activity) => acc + activity.distance, 0)),
 		time: totalTimeFormater(activities.reduce((acc, activity) => acc + activity.moving_time, 0)),
 		averageSpeed: averageSpeedFormater(activities.reduce((acc, activity) => acc + activity.average_speed, 0) / activities.length)

@@ -20,7 +20,9 @@
     "@nuxt/ui": "^2.13.0",
     "@pinia/nuxt": "^0.5.1",
     "@studiometa/vue-mapbox-gl": "^2.4.0",
+    "apexcharts": "^3.47.0",
     "mapbox-gl": "^3.1.2",
-    "pinia": "^2.1.7"
+    "pinia": "^2.1.7",
+    "vue3-apexcharts": "^1.5.2"
   }
 }

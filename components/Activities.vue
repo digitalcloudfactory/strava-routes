@@ -4,7 +4,7 @@ const accessToken = useCookie("access_token");
 
 const activitiesStore = useActivitiesStore();
 
-const filters = computed(() => activitiesStore.filters);
+const { sortAsc, sortBy, filters } = storeToRefs(activitiesStore)
 
 const { data, pending } = await useLazyAsyncData(
 	'activities',
@@ -18,14 +18,14 @@ const { data, pending } = await useLazyAsyncData(
 			before: null,
 			after: null,
 			page: 1,
-			per_page: 50,
+			per_page: 200,
 		}
 	}) as Promise<Activities>, {}
 );
 
 const activities = computed(() => {
 	const filtered = getActivitiesFiltered(data.value as Activities, filters.value)
-	const sorted = getActivitiesSorted(filtered);
+	const sorted = getActivitiesSorted(filtered, sortBy.value, sortAsc.value);
 	const formatted = getActivitiesFormatted(sorted, config.public.apiMapboxToken);
 
 	activitiesStore.setActivities(filtered);
@@ -36,24 +36,23 @@ const activities = computed(() => {
 </script>
 
 <template>
-	<main>
-		<div class="title">
-			<h1>Activités</h1>
-			<ActivitiesSort />
-		</div>
-		<div class="activities">
-			<ActivityCard v-if="pending" v-for="i in 5" :key="i" :skeleton="pending" />
-			<ActivityCard v-else-if="!activities.length" :empty="true" />
-			<ActivityCard v-else v-for="run in activities" :key="run.id" :run="run" />
-		</div>
+	<main class="wrapper">
+		<template v-if="activities.length > 1">
+			<div class="title">
+				<h1>Activités</h1>
+				<ActivitiesSort />
+			</div>
+			<div class="activities">
+				<ActivityCard v-for="run in activities" :key="run.id" :run="run" :skeleton="pending" />
+			</div>
+		</template>
+		<ActivitiesNotFound v-else />
 	</main>
 </template>
 
 <style scoped lang="scss">
 main {
-	.title {
-		margin-bottom: .75rem;
-	}
+	gap: 1.125rem;
 
 	h1 {
 		font-size: 0.875rem;
