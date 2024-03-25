@@ -94,8 +94,10 @@ defineProps<{
 		gap: 1rem;
 
 		.map {
-			max-width: 6rem;
+			width: 8rem;
+			aspect-ratio: 1;
 			border-radius: 0.5rem;
+			background-color: var(--c-light-gray);
 			overflow: hidden;
 
 			img {

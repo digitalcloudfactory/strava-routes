@@ -69,8 +69,9 @@ h2 {
 	grid-column-start: span 2;
 	cursor: default;
 
-	&:hover {
-		background: var(--c-primary);
+	&:hover,
+	&.primary {
+		background: var(--c-primary-500);
 		color: var(--c-light);
 	}
 

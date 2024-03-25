@@ -6,7 +6,7 @@ const activitiesStore = useActivitiesStore();
 
 const { sortAsc, sortBy, filters } = storeToRefs(activitiesStore)
 
-const { data, pending } = await useLazyAsyncData(
+const { data, pending } = useLazyAsyncData(
 	'activities',
 	() => $fetch("https://www.strava.com/api/v3/athlete/activities", {
 
@@ -24,7 +24,9 @@ const { data, pending } = await useLazyAsyncData(
 );
 
 const activities = computed(() => {
-	const filtered = getActivitiesFiltered(data.value as Activities, filters.value)
+	if (!data.value) return [];
+
+	const filtered = getActivitiesFiltered(data.value, filters.value);
 	const sorted = getActivitiesSorted(filtered, sortBy.value, sortAsc.value);
 	const formatted = getActivitiesFormatted(sorted, config.public.apiMapboxToken);
 
@@ -37,7 +39,7 @@ const activities = computed(() => {
 
 <template>
 	<main class="wrapper">
-		<template v-if="activities.length > 1">
+		<template v-if="activities.length >= 1">
 			<div class="title">
 				<h1>Activités</h1>
 				<ActivitiesSort />

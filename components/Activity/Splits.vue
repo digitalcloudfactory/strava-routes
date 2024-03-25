@@ -8,15 +8,28 @@ const averageSpeed = computed(() => {
 	return splits.map((split) => split.average_speed)
 })
 
-const series = ref([{
-	name: "Allure moyenne",
-	data: averageSpeed.value
-}])
+const series = ref([
+	{
+		name: "Allure moyenne",
+		data: averageSpeed.value,
+		type: "column"
+	},
+	{
+		name: "BPM",
+		data: splits.map((split) => Math.round(split.average_heartrate)),
+		type: "line",
+	},
+	{
+		name: "Variation d'altitude",
+		data: splits.map((split) => Math.round(split.elevation_difference)),
+		type: "line",
+	}
+])
 
 const options = ref({
 	chart: {
 		id: `splits-${id}`,
-		type: "bar",
+		type: "line",
 		height: 400,
 		toolbar: {
 			tools: {
@@ -34,40 +47,63 @@ const options = ref({
 		bar: {
 			borderRadius: 3,
 			borderRadiusApplication: 'around',
-			horizontal: false,
-			barHeight: '100%',
 			columnWidth: '90%',
-		},
-	},
-	theme: {
-		monochrome: {
-			enabled: true,
-			color: constants.colors.primary,
-			shadeTo: 'light',
-			shadeIntensity: 0.65
+			horizontal: false,
 		}
 	},
+	stroke: {
+		width: [0, 4, 3],
+		curve: 'smooth'
+	},
+	dataLabels: {
+		enabled: true,
+		enabledOnSeries: [1],
+		formatter: (value: number) => Math.round(value)
+	},
+	colors: ["#1ebeff", "#ff4560", "#000"],
 	xaxis: {
-		categories: splits.map((split) => split.split),
-		labels: {
-			show: true
-		},
 		tooltip: {
 			enabled: false
 		}
 	},
-	yaxis: {
-		labels: {
-			formatter: (value: number) => averageSpeedFormater(value),
+	yaxis: [
+		{
+			title: {
+				text: "Allure moyenne"
+			},
+			labels: {
+				formatter: (value: number) => averageSpeedFormater(value)
+			},
+			min: Math.min(...averageSpeed.value) - 0.15,
+			max: Math.max(...averageSpeed.value) + 0.15,
 		},
-		//min offset to avoid the lowest value to be at the bottom of the chart
-		min: Math.min(...averageSpeed.value) - 0.15,
-		max: Math.max(...averageSpeed.value) + 0.15,
+		{
+			show: false,
+			title: {
+				text: "BPM"
+			},
+			labels: {
+				formatter: (value: number) => `${Math.round(value)} bpm`
+			},
+			min: Math.min(...splits.map((split) => split.average_heartrate)) - 5,
+			max: Math.max(...splits.map((split) => split.average_heartrate)) + 5,
 
-	},
-	dataLabels: {
-		enabled: false
-	},
+
+		},
+		{
+			decimalsInFloat: false,
+			opposite: true,
+			title: {
+				text: "Variation d'altitude"
+			},
+			labels: {
+				formatter: (value: number) => `${Math.round(value)} m`
+			},
+			min: Math.min(...splits.map((split) => split.elevation_difference)) - 10,
+			max: Math.max(...splits.map((split) => split.elevation_difference)) + 10,
+
+		},
+	],
 	grid: {
 		show: true,
 		strokeDashArray: 3,
@@ -82,69 +118,7 @@ const options = ref({
 			right: 24,
 			left: 24
 		}
-	},
-	tooltip: {
-		custom: function ({ dataPointIndex }: { dataPointIndex: number }) {
-			return `
-			<div class="chart-tooltip">
-				<div class="title">Split ${splits[dataPointIndex].split}</div>
-				<div class=items>
-					<div class="item">Distance : <b>${splits[dataPointIndex].distance}m</b></div>
-					<div class="item">Allure moyenne : <b>${averageSpeedFormater(splits[dataPointIndex].average_speed)}</b></div>
-					<div class="item">Dénivelé : <b>${splits[dataPointIndex].elevation_difference}m</b></div>
-					<div class="item">FC Moyenne : <b>${Math.round(splits[dataPointIndex].average_heartrate)}bpm</b></div>
-				</div>
-			</div>
-			`
-		},
-		marker: {
-			show: false,
-		},
-	},
-	markers: {
-		size: 4,
-	},
-	legend: {
-		show: false
-	},
-	responsive: [{
-		breakpoint: 1000,
-		options: {
-			chart: {
-				height: splits.length * 35,
-			},
-			plotOptions: {
-				bar: {
-					horizontal: true,
-					barHeight: '90%',
-					columnWidth: '100%',
-
-				}
-			},
-			yaxis: {
-				labels: {},
-			},
-			xaxis: {
-				labels: {
-					formatter: (value: number) => averageSpeedFormater(value),
-				},
-				min: Math.min(...averageSpeed.value) - 0.15,
-				max: Math.max(...averageSpeed.value) + 0.15,
-			},
-			grid: {
-				yaxis: {
-					lines: {
-						show: false
-					}
-				},
-				xaxis: {
-					lines: {
-						show: true
-					}
-				},
-			}
-		}
-	}]
+	}
 })
 
 </script>
@@ -160,6 +134,14 @@ const options = ref({
 </template>
 
 <style scoped lang="scss">
+.splits {
+	display: none;
+
+	@include after(sm) {
+		display: block;
+	}
+}
+
 h2 {
 	font-size: 1rem;
 	text-transform: uppercase;

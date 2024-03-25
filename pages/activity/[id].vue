@@ -21,7 +21,6 @@ const activityFormatted = computed(() => {
 	if (data.value) {
 		return getActivityFormatted(data.value, "")
 	}
-
 })
 </script>
 

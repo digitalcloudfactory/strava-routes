@@ -2,7 +2,7 @@
 const accessToken = useCookie("access_token")
 
 const athlete = await useLazyAsyncData(
-	'profil',
+	'profile',
 	() => $fetch("https://www.strava.com/api/v3/athlete", {
 
 		method: "GET",
