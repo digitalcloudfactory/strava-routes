@@ -47,6 +47,11 @@ const activityFormatted = computed(() => {
 			<ActivityStats v-if="activityFormatted" :activity="activityFormatted" />
 
 			<ActivitySplits v-if="data" :splits="data.splits_metric" :id="id" />
+
+			<a class="strava" :href="`https://www.strava.com/activities/${id}`" target="_blank"
+				rel="noopener nofollow noindex">Voir
+				sur
+				Strava</a>
 		</template>
 	</main>
 
@@ -55,8 +60,6 @@ const activityFormatted = computed(() => {
 <style scoped lang="scss">
 main {
 	gap: 1.125rem;
-	margin-bottom: 4rem;
-
 }
 
 .back {
@@ -78,5 +81,12 @@ main {
 		font-size: 1.125rem;
 	}
 
+}
+
+.strava {
+	color: var(--c-gray);
+	font-size: 14px;
+	text-align: center;
+	text-decoration: underline;
 }
 </style>
