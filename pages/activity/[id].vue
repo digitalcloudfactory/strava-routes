@@ -17,6 +17,11 @@ const { data, error } = await useAsyncData(
 	}) as Promise<Activity>, {}
 )
 
+
+useHead({
+	title: data.value?.name || "Activity",
+})
+
 const activityFormatted = computed(() => {
 	if (data.value) {
 		return getActivityFormatted(data.value, "")

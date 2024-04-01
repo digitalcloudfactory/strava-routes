@@ -4,6 +4,10 @@ definePageMeta({
 	middleware: ["auth"]
 });
 
+useHead({
+	title: 'My Activities',
+})
+
 </script>
 
 <template>

@@ -4,6 +4,11 @@ definePageMeta({
 	middleware: ["auth"]
 })
 
+
+useHead({
+	title: 'Login',
+})
+
 const config = useRuntimeConfig()
 const href = `https://www.strava.com/oauth/authorize?client_id=${config.public.apiClientID}&response_type=code&redirect_uri=${config.public.apiRedirectURI}&approval_prompt=force&scope=activity:read_all,read_all`
 
