@@ -1,75 +1,27 @@
-# Nuxt 3 Minimal Starter
+# My Strava metrics 🏃‍♂️🏃‍♀️
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is a simple Nuxt app that fetches your Strava metrics and displays them in a nice way.
 
-## Setup
+## Stack
 
-Make sure to install the dependencies:
+- Nuxt.js
+- NuxtUI
+- Pinia
+- SASS
+- Tailwind CSS
+- Strava API
+- Mapbox
+- ApexCharts
 
-```bash
-# npm
-npm install
+## Installation
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
+1. Clone the repository
+2. Run `npm install`
+3. Create a `.env` file in the root of the project and follow the `.env.example` file
+4. Run `npm run dev`
 
 ## Production
 
-Build the application for production:
+This app is hosted on Netlify. Continuous deployment is enabled.
 
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d931d0e4-c2e2-414c-b314-bc64efc9214b/deploy-status)](https://app.netlify.com/sites/my-strava-metrics/deploys)
