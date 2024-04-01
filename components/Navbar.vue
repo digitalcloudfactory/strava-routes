@@ -16,7 +16,7 @@ const athlete = await useLazyAsyncData(
 <template>
 	<nav>
 		<NuxtLink to="/">MyMetrics</NuxtLink>
-		<NuxtLink to="/stats">Stats</NuxtLink>
+		<!-- <NuxtLink to="/stats">Stats</NuxtLink> -->
 		<div class="profile" v-if="athlete.data.value">
 			<span>@{{ athlete.data.value?.username }}</span>
 			<img :src="athlete.data.value?.profile_medium" :alt="`Photo de ${athlete.data.value?.username}`">
